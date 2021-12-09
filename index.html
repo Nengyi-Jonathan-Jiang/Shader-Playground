@@ -10,7 +10,25 @@
         <script src="boilerplate.js"></script>
     </head>
     <body>
-        <div id="canvas-container"></div>
+        <div id="content">
+            <div id="left">
+                <div id="code-header" class="code">
+                    precision mediump float; <br/>
+                    varying vec2 fragCoord; <br/>
+                    <br/>
+                    void main{
+                </div>
+                <div id="code-editor" class="code">
+                    gl_FragColor = vec4(0.5 + 0.5 * cos(fragCoord.xyx + vec3(0,2,4)), 1.0);
+                </div>
+                <div id="code-footer" class="code">
+                }
+                </div>
+            </div>
+            <div id="right">
+                <div id="canvas-container"></div>
+            </div>
+        </div>
         <script src="script.js"></script>
     </body>
 </html>

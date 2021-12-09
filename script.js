@@ -7,32 +7,10 @@ gl.clearColor(0,0,0,1);
 
 boilerplate.events.init();
 
-var program = boilerplate.createProgramFromSources(gl, `
-attribute vec2 a_position;
-varying vec2 fragCoord;
-
-uniform mat4 u_matrix;
-
-void main() {
-    gl_Position = u_matrix * vec4(a_position, 1.0, 1.0);
-    fragCoord = a_position;
-}
-`,`
-precision mediump float;
-varying vec2 fragCoord;
-
-void main(){
-    gl_FragColor = vec4(vec3(0.5), 1.0);
-}`)
-vertexAttribPointer(buf,name,type,size,stride,offset,normalize = false){
-    this.use();
-    const gl = this.gl, loc = this.getAttribLoc(name);
-    gl.enableVertexAttribArray(loc);
-    gl.bindBuffer(gl.ARRAY_BUFFER, buf.buffer);
-    gl.vertexAttribPointer(loc, size, gl[type], normalize, stride, offset);
-}
-gl.enableVertexAttribArray()
-program.vertexAttribPointer(VBO,"a_position","FLOAT",2,0,0);
+const vertCode = "attribute vec2 a_position;varying vec2 fragCoord;uniform mat4 u_matrix;void main(){gl_Position=u_matrix*vec4(a_position,1.0,1.0);fragCoord=a_position;}"
+var fragCode = "void main(){\n\tgl_FragColor = vec4(0.5 + 0.5 * cos(fragCoord.xyx + vec3(0,2,4)), 1.0);\n}";
+var inputHeader = "precision mediump float;\nvarying vec2 fragCoord;\n";
+var program = boilerplate.createProgramFromSources(gl, vertCode, inputHeader + fragCode);
 
 var _locs = new Map();
 function getLoc(name){
@@ -40,6 +18,22 @@ function getLoc(name){
     if(!loc) _locs.set(name, loc = gl.getUniformLocation(program, name));
     return loc;
 }
+
+
+let buffer = gl.createBuffer();
+gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-8, -2, -8, 2, 8, -2, -8, 2, 8, -2, 8, 2]), gl.STATIC_DRAW);
+function vertexAttribPointer(buf,name,type,size,stride,offset,normalize = false){
+    this.use();
+    const gl = this.gl, loc = this.getAttribLoc(name);
+    gl.enableVertexAttribArray(loc);
+    gl.bindBuffer(gl.ARRAY_BUFFER, buf.buffer);
+    gl.vertexAttribPointer(loc, size, gl[type], normalize, stride, offset);
+}
+gl.enableVertexAttribArray(getLoc("a_position"));
+gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+gl.vertexAttribPointer(getLoc("a_position"), 2, gl.FLOAT, false, 0, 0);
+
 /**
  * 
  * @param {string} name 
@@ -75,18 +69,65 @@ var width,height;
     new ResizeObserver((f=>(f(),f))(_=>{
         const {clientWidth, clientHeight} = canvas_container;
         gl.viewport(0, 0, canvas.width = width = clientWidth, canvas.height = height = clientHeight);
-        gl.useProgram(program);
-        setUniform("u_matrix", "mat4", [height / width,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1]);
+
     })).observe(canvas_container);
 }
 
-let buffer = gl.createBuffer();
-gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
-gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-8, -2, -8, 2, 8, -2, -8, 2, 8, -2, 8, 2]), gl.STATIC_DRAW);
+/**@type {Map<string, {type:string, name:string}>} */
+const options = new Map([
+    ["time", {
+        type: "float",
+        name: null,
+    }],
+])
+function isInputEnabled(input){
+    return options.get(input).name !== null;
+}
+function enableInput(input, name){
+    options.get(input).name = name;
+    reCompileProgram();
+}
+function disableInput(input){
+    options.get(input).name = null;
+    reCompileProgram();
+}
+function reCompileProgram(){
+    inputHeader = "precision mediump float;\nvarying vec2 fragCoord;\n";
+    for(let [_,{type,name}] of options.entries()) if(name) inputHeader += `uniform ${type} ${name};\n`;
+    program = boilerplate.createProgramFromSources(gl, vertCode,inputHeader + fragCode);
+    _locs.clear();
+}
+function setFragCode(code){
+    fragCode = code;
+}
 
-function animate(){
+let start_time = 0;
+let should_reset_time = false;
+function resetTime(){
+    should_reset_time = true;
+}
+
+/**@type {FrameRequestCallback}*/
+function animate(time){
+    if(should_reset_time) start_time = time, should_reset_time = false;
+    time -= start_time;
+
+    gl.useProgram(program);
+    setUniform("u_matrix", "mat4", [height / width,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1]);
+
+    for(let [inputName,{type, name}] of options.entries()){
+        if(!name) continue;
+        let data;
+        switch(inputName){
+            case "time":
+                data = time / 1000;
+                break;
+            default: break;
+        }
+        if(data) setUniform(name, type, data);
+    }
+
     gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);
-
     gl.drawArrays(gl.TRIANGLES, 0, 6);
 
     requestAnimationFrame(animate);
