@@ -1,5 +1,5 @@
 body{
-    --body-padding: 2px;
+    --body-padding: 0px;
     position:absolute; left:0; top:0; padding: var(--body-padding); margin:0;
     overflow: hidden;
 }
