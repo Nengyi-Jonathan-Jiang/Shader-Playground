@@ -1,0 +1,10 @@
+body{
+    --body-padding: 2px;
+    position:absolute; left:0; top:0; padding: var(--body-padding); margin:0;
+    overflow: hidden;
+}
+
+div#canvas-container{
+    width: calc(100vw - (2 * var(--body-padding)));
+    height: calc(100vh - (2 * var(--body-padding)));
+}
