@@ -3,6 +3,7 @@ var canvas = document.createElement("canvas");
 
 var gl = canvas.getContext("webgl", {antialias:false});
 if(!gl) throw Error("ERROR: WEBGL NOT SUPPORTED");
+gl.clearColor(0,0,0,1);
 
 boilerplate.events.init();
 
@@ -21,10 +22,24 @@ precision mediump float;
 varying vec2 fragCoord;
 
 void main(){
-    gl_FragColor = vec4(0.5 + 0.5 * cos(fragCoord.xyx + vec3(0,2,4)), 1.0);
+    gl_FragColor = vec4(vec3(0.5), 1.0);
 }`)
+vertexAttribPointer(buf,name,type,size,stride,offset,normalize = false){
+    this.use();
+    const gl = this.gl, loc = this.getAttribLoc(name);
+    gl.enableVertexAttribArray(loc);
+    gl.bindBuffer(gl.ARRAY_BUFFER, buf.buffer);
+    gl.vertexAttribPointer(loc, size, gl[type], normalize, stride, offset);
+}
+gl.enableVertexAttribArray()
+program.vertexAttribPointer(VBO,"a_position","FLOAT",2,0,0);
 
-var _uniform_locs = new Map();
+var _locs = new Map();
+function getLoc(name){
+    let loc = _locs.get(name);
+    if(!loc) _locs.set(name, loc = gl.getUniformLocation(program, name));
+    return loc;
+}
 /**
  * 
  * @param {string} name 
@@ -33,17 +48,17 @@ var _uniform_locs = new Map();
  * @returns {void}
  */
 function setUniform(name, type, data){
-    const loc = _uniform_locs.get(name);
-    if(!loc) _uniform_locs.set(name, loc = gl.getUniformLocation(program, name));
+    let loc = _locs.get(name);
+    if(!loc) _locs.set(name, loc = gl.getUniformLocation(program, name));
 
     switch(type){
         case "float": return gl.uniform1f(loc, data);
         case "vec2":  return gl.uniform2f(loc, ...data);
-        case "vec3":  return gl.uniform2f(loc, ...data);
-        case "vec4":  return gl.uniform2f(loc, ...data);
-        case "mat2":  return gl.uniform2f(loc, ...data);
-        case "mat3":  return gl.uniform2f(loc, ...data);
-        case "mat4":  return gl.uniform2f(loc, ...data);
+        case "vec3":  return gl.uniform3f(loc, ...data);
+        case "vec4":  return gl.uniform4f(loc, ...data);
+        case "mat2":  return gl.uniformMatrix2fv(loc, false, data);
+        case "mat3":  return gl.uniformMatrix3fv(loc, false, data);
+        case "mat4":  return gl.uniformMatrix4fv(loc, false, data);
 
         case "sampler2D":
             gl.activeTexture(gl.TEXTURE0);
@@ -61,13 +76,13 @@ var width,height;
         const {clientWidth, clientHeight} = canvas_container;
         gl.viewport(0, 0, canvas.width = width = clientWidth, canvas.height = height = clientHeight);
         gl.useProgram(program);
-        gl.uniformMatrix4fv(gl.getUniformLocation(program, "u_matrix"), false, [height / width,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1]);
+        setUniform("u_matrix", "mat4", [height / width,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1]);
     })).observe(canvas_container);
 }
 
 let buffer = gl.createBuffer();
 gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
-gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-8,-2,-8,2,8,-2,-8,2,8,-2,8,2]), gl.STATIC_DRAW);
+gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-8, -2, -8, 2, 8, -2, -8, 2, 8, -2, 8, 2]), gl.STATIC_DRAW);
 
 function animate(){
     gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);
