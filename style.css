@@ -131,7 +131,7 @@ div#edit-inputs>div::after{
     display:block;
     width:40px;
     height:20px;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 25' width='40' height='20' %3E%3Cpath d='M 25 20 L 45 5 L 5 5 L 25 20 Z' style='fill: rgba(50,50,50,0.5);'/%3E%3Crect width='50' height='25' style='fill: rgba(216, 216, 216, 0.5);'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 25' width='40' height='20' %3E%3Cpath d='M 25 18 L 43 7 L 7 7 L 25 18 Z' style='fill: rgba(50,50,50,0.5);'/%3E%3Crect width='50' height='25' style='fill: rgba(216, 216, 216, 0.5);'/%3E%3C/svg%3E");
     text-align: center;
     right:0;
 }
@@ -140,14 +140,13 @@ button#compile-button:hover {
     background-color: cadetblue;
 }
 button#compile-button {
-    position:absolute; bottom:0;
     width: calc(100vw * var(--left-width));
-    left:0;
     background-color: limegreen;
     color: white;
     padding: 1ch;
     margin-top: 2ch;
 }
+
 
 div#edit-inputs>div:hover,
 div#edit-inputs>div:focus-within
@@ -162,6 +161,11 @@ div#edit-inputs{
     height:fit-content;
     left:0px;
     overflow:hidden;
+    
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 div#edit-inputs>div{
     background: white;
