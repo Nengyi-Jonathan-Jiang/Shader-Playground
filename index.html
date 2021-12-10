@@ -11,24 +11,34 @@
     </head>
     <body>
         <div id="content">
-            <div id="left" style="width: 500px;">
+            <div id="left">
                 <div id="code-header" class="code">
                     <div id="edit-inputs">
-                        <div class="input-editor">
-                            Vec2/Fragment Coordinate <input class="name-enter" type="text" value="fragCoord"/>
+                        <div>
+                            <br>
+                            <div id="input-editors">
+                                <div class="input-editor">
+                                    <span>Vec2/Fragment Coordinate</span><input class="name-enter" type="text" value="fragCoord"/>
+                                </div>
+                                <div class="input-editor">
+                                    <span>Float/Time</span><input class="name-enter" type="text" value="iTime"/>
+                                </div>
+                                <div class="input-editor">
+                                    <span>Vec2/Mouse Position</span><input class="name-enter" type="text" value="mouseCoords"/>
+                                </div>
+                            </div>
+                            <div id="add-input-container">
+                                <button id="add-input">+</button>
+                            </div>
                         </div>
-                        <select id="add-input">
-                            <option value=""  >+</option>
-                            <option value="time">Float/Time</option>
-                            <option value="wheel">Float/Mouse Wheel</option>
-                            <option value="mouseBtn">Float/Mouse Button</option>
-                            <option value="mousePos">Vec2/Mouse Coordinates</option>
-                        </select>
                     </div>
-                    <div>
-                        precision mediump float; <br>
-                        varying vec2 fragCoord; <br><br>
+                    <div id="frag-code-header">
+                        precision mediump float;
+                        <br> varying vec2 fragCoord;
+                        <br> uniform float iTime;
+                        <br> uniform vec2 mouseCoords;
                     </div>
+                    <br> <br>
                 </div>
                 <div id="code-editor" class="code">
                     <div id="code-overlay"></div>

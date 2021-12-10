@@ -14,39 +14,68 @@ div#content{
     width:  100vw;
     height: 100vh;
     align-items: stretch;
+    overflow:hidden;
+
+    --left-width: .5;
 }
 div#left{
-    width: 500px;
+    width: calc(var(--left-width) * 100vw);
     flex-grow: 0;
     flex-shrink: 0;
     display:flex;
     flex-direction: column;
     align-items: stretch;
     overflow-x: scroll;
+    min-width: 0;
+    max-width: 100vw;
+
 }
 
 div#right{
-    min-width: 0;
-    max-width: 100vw;
+    width: calc((1 - var(--left-width)) * 100vw);
 }
+
+
+div#code-header{
+    width: 100%;
+}
+/* div#left>div{
+    width: fit-content;
+    min-width: var(--left-width);
+} */
 
 div.horizontal-resizer{
     background-color: black;
     z-index: 1000;
     flex-grow: 0;
     flex-shrink: 0;
+    cursor: ew-resize;
+    width: 0px;
+    height: 100%;
+    position:relative;
+}
+div.horizontal-resizer::before{
+    position:absolute;
+    top:0;left:-1px;
+    width:2px; bottom:0;
+
+    content:"";
+    display:block;
+    background-color: black;
 }
 div.horizontal-resizer:after{
+    position:absolute;
+    top:0;left:-5px;
+    width:10px; bottom:0;
+
     content:"";
     display:block;
     background-color: transparent;
+    
 }
 div.horizontal-resizer:hover::after{
     background-color: #0008;
 }
-
-div.horizontal-resizer{width: 1px; height: 100%}
-div.horizontal-resizer::after{transform: translateX(-4px);width:9px;height: 100%}
 
 div#right{
     flex-grow: 1;
@@ -71,25 +100,82 @@ div#code-editor{
     padding: -1px;
 }
 
-select#add-input{
+
+div#edit-inputs>div::after{
+    opacity: 100%;
+    position: absolute;
+    content:"v";
+    display:block;
+    width:5ch;
+    height:15px;background-color: #0004;
+    text-align: center;
+    left: calc((50vw * var(--left-width)) - 1.5ch);
+    right:0;
+}
+
+div#edit-inputs>div:not(:hover) { transform:translateY(-100%); animation-name: slide-down}
+div#edit-inputs>div:hover       { transform:translateY(0%);   animation-name: slide-up}
+
+@keyframes slide-down{0%{transform:translateY(0%)}100%{transform:translateY(-100%)}}
+@keyframes slide-up  {0%{transform:translateY(-100%)}100%{transform:translateY(0%)}}
+
+div#edit-inputs{
+    position:absolute;
+    width: calc(100vw * var(--left-width));
+    height:fit-content;
+    left:0px;
+    overflow:visible;
+}
+div#edit-inputs>div{
+    background: orange;
+    animation-duration: .2s;
+    animation-direction: normal;
+    animation-fill-mode: none;
+}
+
+div#edit-inputs>div#input-editor{
+    display:flex;
+}
+
+div#edit-inputs>span{
+    flex-shrink: 0;
+    flex-grow:0;
+}
+div#edit-inputs>input{
+    flex-shrink: 1;
+    flex-grow:1;
+    width:fit-content;
+}
+
+div#edit-inputs input,
+div#edit-inputs button{ 
+    outline: none;
+    border: none;
+}
+div#edit-inputs button{
+    background: yellow;
+    text-align: center;
+    width: 100%;
+}
+
+button#add-input{
     width:100%;
     border:0;
 }
 
-div#code-editor>div{
-    /**/
-}
 div#code-editor>textarea{
     resize:none;
     border:0;
     outline: none;
     padding: 0;
-    font: inherit;
     position:absolute;
     top:0;
     background: transparent;
     width:100%;
     height:100%;
-    min-width: 1ch;
-    min-height: 1ch;
+    min-width: 1ch; min-height: 1ch;
+}
+
+textarea,input,button{
+    font: inherit;
 }
