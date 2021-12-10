@@ -35,6 +35,21 @@ div#right{
     width: calc((1 - var(--left-width)) * 100vw);
 }
 
+table#input-editors{
+    padding:0;margin:0;
+    row-gap: 0;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+table#input-editors>tbody>tr{
+    overflow:scroll;
+    padding:-1px;
+    margin:0;
+}
+table#input-editors>tbody>tr>td{
+    padding:0;
+    margin:0;
+}
 
 div#code-header{
     width: 100%;
@@ -102,19 +117,19 @@ div#code-editor{
 
 
 div#edit-inputs>div::after{
-    opacity: 100%;
     position: absolute;
     content:"v";
     display:block;
     width:5ch;
     height:15px;background-color: #0004;
     text-align: center;
-    left: calc((50vw * var(--left-width)) - 1.5ch);
+    left: calc((50vw * var(--left-width)) - 2.5ch);
     right:0;
 }
 
-div#edit-inputs>div:not(:hover) { transform:translateY(-100%); animation-name: slide-down}
-div#edit-inputs>div:hover       { transform:translateY(0%);   animation-name: slide-up}
+div#edit-inputs>div:hover,
+div#edit-inputs>div:focus-within
+{ transform:translateY(0%);   animation-name: slide-up}
 
 @keyframes slide-down{0%{transform:translateY(0%)}100%{transform:translateY(-100%)}}
 @keyframes slide-up  {0%{transform:translateY(-100%)}100%{transform:translateY(0%)}}
@@ -124,16 +139,22 @@ div#edit-inputs{
     width: calc(100vw * var(--left-width));
     height:fit-content;
     left:0px;
-    overflow:visible;
+    overflow:hidden;
 }
 div#edit-inputs>div{
-    background: orange;
+    background: white;
     animation-duration: .2s;
     animation-direction: normal;
     animation-fill-mode: none;
+    transform:translateY(-100%);
+    animation-name: slide-down;
 }
 
-div#edit-inputs>div#input-editor{
+div#input-editors-container{
+    overflow-x:scroll;
+}
+
+table#input-editor td{
     display:flex;
 }
 
@@ -153,10 +174,10 @@ div#edit-inputs button{
     border: none;
 }
 div#edit-inputs button{
-    background: yellow;
     text-align: center;
     width: 100%;
 }
+
 
 button#add-input{
     width:100%;
@@ -178,4 +199,5 @@ div#code-editor>textarea{
 
 textarea,input,button{
     font: inherit;
+    padding:0;
 }

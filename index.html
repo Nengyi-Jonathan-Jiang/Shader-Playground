@@ -16,27 +16,37 @@
                     <div id="edit-inputs">
                         <div>
                             <br>
-                            <div id="input-editors">
-                                <div class="input-editor">
-                                    <span>Vec2/Fragment Coordinate</span><input class="name-enter" type="text" value="fragCoord"/>
-                                </div>
-                                <div class="input-editor">
-                                    <span>Float/Time</span><input class="name-enter" type="text" value="iTime"/>
-                                </div>
-                                <div class="input-editor">
-                                    <span>Vec2/Mouse Position</span><input class="name-enter" type="text" value="mouseCoords"/>
-                                </div>
+                            <div id="input-editors-container">
+                                <table id="input-editors">
+                                    <tr>
+                                        <td>Vec2/Fragment Coordinate</td>
+                                        <td><input spellcheck="false" class="name-enter" type="text" value="fragCoord"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Vec2/Mouse Cursor Coordinate</td>
+                                        <td><input spellcheck="false" class="name-enter" type="text" value="mouseCoords"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Float/Time</td>
+                                        <td><input spellcheck="false" class="name-enter" type="text" value="iTime"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Vec4/Date</td>
+                                        <td><input spellcheck="false" class="name-enter" type="text" value="iDate"/></td>
+                                    </tr>
+                                </table>
                             </div>
                             <div id="add-input-container">
                                 <button id="add-input">+</button>
                             </div>
                         </div>
                     </div>
-                    <div id="frag-code-header">
+                    <div id="code-header">
                         precision mediump float;
                         <br> varying vec2 fragCoord;
-                        <br> uniform float iTime;
                         <br> uniform vec2 mouseCoords;
+                        <br> uniform float iTime;
+                        <br> uniform vec3 iDate;
                     </div>
                     <br> <br>
                 </div>
