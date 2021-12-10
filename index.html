@@ -10,31 +10,52 @@
         <script src="boilerplate.js"></script>
     </head>
     <body>
+        <template id="input-type-select-template">
+            <select class="input-type-select">
+                <option class="input-type-option" value="Time"     >Elapsed Time</option>
+                <option class="input-type-option" value="CurrTime" >Current Time</option>
+                <option class="input-type-option" value="CurrDate" >Current Date</option>
+                <option class="input-type-option" value="MouseBtns">Mouse Buttons</option>
+                <option class="input-type-option" value="MousePos" >Mouse Cursor Position</option>
+                <option class="input-type-option" value="KeyDown"  >Last key pressed</option>
+            </select>
+        </template>
+        <svg style="display:none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 25" width="50" height="25" style="width: 500px;height: 250px;">
+            <path d="M 25 5 L 45 20 L 5 20 L 25 5 Z" style="fill: rgba(50,50,50,0.5);"/>
+            <rect width="50" height="25" style="fill: rgba(216, 216, 216, 0.5);"/>
+        </svg>
         <div id="content">
             <div id="left">
                 <div id="code-header" class="code">
                     <div id="edit-inputs">
                         <div>
-                            <br>
                             <div id="input-editors-container">
                                 <table id="input-editors">
                                     <tr>
-                                        <td>Vec2/Fragment Coordinate</td>
+                                        <th>Input Type</th>
+                                        <th>Variable Name</th>
+                                    </tr>
+                                    <tr>
+                                        <td><select class="input-type-select"><option class="input-type-option">Fragment Position &nbsp; &nbsp;</option></select></td>
                                         <td><input spellcheck="false" class="name-enter" type="text" value="fragCoord"/></td>
                                     </tr>
                                     <tr>
-                                        <td>Vec2/Mouse Cursor Coordinate</td>
+                                        <td><span class="select-placeholder" data-value="MousePos"></span></td>
                                         <td><input spellcheck="false" class="name-enter" type="text" value="mouseCoords"/></td>
                                     </tr>
                                     <tr>
-                                        <td>Float/Time</td>
+                                        <td><span class="select-placeholder" data-value="Time"></span></td>
                                         <td><input spellcheck="false" class="name-enter" type="text" value="iTime"/></td>
                                     </tr>
                                     <tr>
-                                        <td>Vec4/Date</td>
+                                        <td><span class="select-placeholder" data-value="CurrDate"></span></td>
                                         <td><input spellcheck="false" class="name-enter" type="text" value="iDate"/></td>
                                     </tr>
                                 </table>
+                                <script>
+                                    (tmplt=>[...document.querySelectorAll("span.select-placeholder")].forEach(a=>((b=>{a.parentElement.appendChild(b),b.value = a.dataset.value})(tmplt.content.firstElementChild.cloneNode(true)),a.remove())))(document.getElementById("input-type-select-template"));
+                                    [...document.querySelectorAll("tr>td>input.name-enter")].forEach(A=>A.onchange=A.oninput=A.onkeypress=(f=>(f(),f))(_=>{A.setAttribute("size",A.value.length)}));
+                                </script>
                             </div>
                             <div id="add-input-container">
                                 <button id="add-input">+</button>
@@ -56,6 +77,7 @@
     gl_FragColor = vec4(0.5 + 0.5 * cos(fragCoord.xyx + vec3(0,2,4)), 1.0);
 }</textarea>
                 </div>
+                <div id="compile-button-container"><button id="compile-button">COMPILE CODE</button></div>
             </div>
             <div class="horizontal-resizer"></div>
             <div id="right">
