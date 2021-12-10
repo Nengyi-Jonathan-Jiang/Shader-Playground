@@ -1,9 +1,21 @@
 var canvas_container = document.getElementById("canvas-container");
 var canvas = document.createElement("canvas");
 
+var resizer = document.querySelector("div.horizontal-resizer");
+{let _resizer_mouse_down = false;resizer.addEventListener("mousedown",_=>_resizer_mouse_down = true);window.addEventListener("mousemove",e=>{if(_resizer_mouse_down) resizer.previousElementSibling.style.setProperty("width", e.clientX + "px")});window.addEventListener("mouseup",_=>_resizer_mouse_down = false)}
+
+/**@type {HTMLTextAreaElement}*/
+var input = document.getElementById("code-input");
+input.onchange = input.oninput = input.onkeypress = (f=>(f(),f))(_=>{
+    input.previousElementSibling.innerHTML = input.value
+        .replace(/\n/g,"<br>").replace(/ /g,"&nbsp").replace(/<br>$/g,"<br><br>");
+});
+
 var gl = canvas.getContext("webgl", {antialias:false});
 if(!gl) throw Error("ERROR: WEBGL NOT SUPPORTED");
 gl.clearColor(0,0,0,1);
+
+
 
 boilerplate.events.init();
 

@@ -1,37 +1,54 @@
 body{
-    --body-padding: 0px;
-    position:absolute; left:0; top:0; padding: var(--body-padding); margin:0;
-    overflow: scroll;
+    position:absolute; left:0; top:0; padding: 0; margin:0;
 }
 
 *::-webkit-scrollbar{display:none;}
 
 div#canvas-container{
-    width: 100%; height: 100vh;
+    height: 100vh;
     background: grey;
 }
 
 div#content{
     display: flex;
-    flex-direction: horizontal;
-    width:  calc(100vw - (2 * --body-padding));
-    height: calc(100vh - (2 * --body-padding));
+    width:  100vw;
+    height: 100vh;
     align-items: stretch;
 }
 div#left{
-    overflow: auto;
-    resize:horizontal;
+    width: 500px;
     flex-grow: 0;
     flex-shrink: 0;
-}
-div#left::-webkit-resizer{
-    display: block;
-    width: 1px !important; height: 100vh !important;
-    background-color: red;
+    display:flex;
+    flex-direction: column;
+    align-items: stretch;
+    overflow-x: scroll;
 }
 
 div#right{
-    display: inline-block;
+    min-width: 0;
+    max-width: 100vw;
+}
+
+div.horizontal-resizer{
+    background-color: black;
+    z-index: 1000;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+div.horizontal-resizer:after{
+    content:"";
+    display:block;
+    background-color: transparent;
+}
+div.horizontal-resizer:hover::after{
+    background-color: #0008;
+}
+
+div.horizontal-resizer{width: 1px; height: 100%}
+div.horizontal-resizer::after{transform: translateX(-4px);width:9px;height: 100%}
+
+div#right{
     flex-grow: 1;
     flex-shrink: 1;
 }
@@ -40,9 +57,39 @@ div.code{
     font-size: 11pt;
     font-family: 'Courier New', Courier, monospace;
     white-space: nowrap;
-    overflow: scroll;
+    width: fit-content;
+}
+
+div#canvas{
+    width:100%;height:100%;
 }
 
 div#code-editor{
-    padding-left: 4ch;
+    white-space:nowrap;
+    position:relative;
+    border: 1px black;
+    padding: -1px;
+}
+
+select#add-input{
+    width:100%;
+    border:0;
+}
+
+div#code-editor>div{
+    /**/
+}
+div#code-editor>textarea{
+    resize:none;
+    border:0;
+    outline: none;
+    padding: 0;
+    font: inherit;
+    position:absolute;
+    top:0;
+    background: transparent;
+    width:100%;
+    height:100%;
+    min-width: 1ch;
+    min-height: 1ch;
 }

@@ -11,20 +11,33 @@
     </head>
     <body>
         <div id="content">
-            <div id="left">
+            <div id="left" style="width: 500px;">
                 <div id="code-header" class="code">
-                    precision mediump float; <br/>
-                    varying vec2 fragCoord; <br/>
-                    <br/>
-                    void main{
+                    <div id="edit-inputs">
+                        <div class="input-editor">
+                            Vec2/Fragment Coordinate <input class="name-enter" type="text" value="fragCoord"/>
+                        </div>
+                        <select id="add-input">
+                            <option value=""  >+</option>
+                            <option value="time">Float/Time</option>
+                            <option value="wheel">Float/Mouse Wheel</option>
+                            <option value="mouseBtn">Float/Mouse Button</option>
+                            <option value="mousePos">Vec2/Mouse Coordinates</option>
+                        </select>
+                    </div>
+                    <div>
+                        precision mediump float; <br>
+                        varying vec2 fragCoord; <br><br>
+                    </div>
                 </div>
                 <div id="code-editor" class="code">
-                    gl_FragColor = vec4(0.5 + 0.5 * cos(fragCoord.xyx + vec3(0,2,4)), 1.0);
-                </div>
-                <div id="code-footer" class="code">
-                }
+                    <div id="code-overlay"></div>
+                    <textarea id="code-input" spellcheck="false">void main{
+    gl_FragColor = vec4(0.5 + 0.5 * cos(fragCoord.xyx + vec3(0,2,4)), 1.0);
+}</textarea>
                 </div>
             </div>
+            <div class="horizontal-resizer"></div>
             <div id="right">
                 <div id="canvas-container"></div>
             </div>
