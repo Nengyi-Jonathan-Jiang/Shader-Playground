@@ -11,6 +11,9 @@ div#content{
     width:100vw;
     height:100vh;
 
+    line-height: 16pt;
+    font-size: 14pt;
+
     --slider-pos : .4;
     --left-width: calc(100vw * var(--slider-pos));
     --right-width: calc(100vw * (1 - var(--slider-pos)));
