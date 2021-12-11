@@ -26,58 +26,62 @@
         </svg>
         <div id="content">
             <div id="left">
-                <div id="code-header" class="code">
-                    <div id="edit-inputs">
-                        <div>
-                            <div id="input-editors-container">
-                                <table id="input-editors">
-                                    <tr>
-                                        <th>Input Type</th>
-                                        <th>Variable Name</th>
-                                    </tr>
-                                    <tr>
-                                        <td><select class="input-type-select"><option class="input-type-option">Fragment Position &nbsp; &nbsp;</option></select></td>
-                                        <td><input spellcheck="false" class="name-enter" type="text" value="fragCoord"/></td>
-                                    </tr>
-                                    <tr>
-                                        <td><span class="select-placeholder" data-value="MousePos"></span></td>
-                                        <td><input spellcheck="false" class="name-enter" type="text" value="mouseCoords"/></td>
-                                    </tr>
-                                    <tr>
-                                        <td><span class="select-placeholder" data-value="Time"></span></td>
-                                        <td><input spellcheck="false" class="name-enter" type="text" value="iTime"/></td>
-                                    </tr>
-                                    <tr>
-                                        <td><span class="select-placeholder" data-value="CurrDate"></span></td>
-                                        <td><input spellcheck="false" class="name-enter" type="text" value="iDate"/></td>
-                                    </tr>
-                                </table>
-                                <script>
-                                    (tmplt=>[...document.querySelectorAll("span.select-placeholder")].forEach(a=>((b=>{a.parentElement.appendChild(b),b.value = a.dataset.value})(tmplt.content.firstElementChild.cloneNode(true)),a.remove())))(document.getElementById("input-type-select-template"));
-                                    [...document.querySelectorAll("tr>td>input.name-enter")].forEach(A=>A.onchange=A.oninput=A.onkeypress=(f=>(f(),f))(_=>{A.setAttribute("size",A.value.length)}));
-                                </script>
-                            </div>
-                            <div id="add-input-container">
-                                <button id="add-input">+</button>
-                            </div>
+                <div id="edit-inputs">
+                    <div>
+                        <div id="input-editors-container">
+                            <table id="input-editors">
+                                <tr>
+                                    <th>Input Type</th>
+                                    <th>Variable Name</th>
+                                </tr>
+                                <tr>
+                                    <td><select class="input-type-select"><option class="input-type-option">Fragment Position &nbsp; &nbsp;</option></select></td>
+                                    <td><input spellcheck="false" class="name-enter" type="text" value="fragCoord"/></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="select-placeholder" data-value="MousePos"></span></td>
+                                    <td><input spellcheck="false" class="name-enter" type="text" value="mouseCoords"/></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="select-placeholder" data-value="Time"></span></td>
+                                    <td><input spellcheck="false" class="name-enter" type="text" value="iTime"/></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="select-placeholder" data-value="CurrDate"></span></td>
+                                    <td><input spellcheck="false" class="name-enter" type="text" value="iDate"/></td>
+                                </tr>
+                            </table>
+                            <script>
+                                (tmplt=>[...document.querySelectorAll("span.select-placeholder")].forEach(a=>((b=>{a.parentElement.appendChild(b),b.value = a.dataset.value})(tmplt.content.firstElementChild.cloneNode(true)),a.remove())))(document.getElementById("input-type-select-template"));
+                                [...document.querySelectorAll("tr>td>input.name-enter")].forEach(A=>A.onchange=A.oninput=A.onkeypress=(f=>(f(),f))(_=>{A.setAttribute("size",A.value.length)}));
+                            </script>
+                        </div>
+                        <div id="add-input-container">
+                            <button id="add-input">+</button>
                         </div>
                     </div>
-                    <div id="code-header">
-                        precision mediump float;
-                        <br> varying vec2 fragCoord;
-                        <br> uniform vec2 mouseCoords;
-                        <br> uniform float iTime;
-                        <br> uniform vec3 iDate;
-                    </div>
-                    <br> <br>
                 </div>
-                <div id="code-editor" class="code">
-                    <div id="code-overlay"></div>
-                    <textarea id="code-input" spellcheck="false">void main{
+                <div id="code-container">
+                    <div id="code-header" class="code">
+                        <div id="code-header">
+                            precision mediump float;
+                            <br> varying vec2 fragCoord;
+                            <br> uniform vec2 mouseCoords;
+                            <br> uniform float iTime;
+                            <br> uniform vec3 iDate;
+                        </div>
+                        <br> <br>
+                    </div>
+                    <div id="code-editor" class="code">
+                        <div id="code-overlay"></div>
+                        <textarea id="code-input" spellcheck="false">void main{
     gl_FragColor = vec4(0.5 + 0.5 * cos(fragCoord.xyx + vec3(0,2,4)), 1.0);
 }</textarea>
+                    </div>
                 </div>
-                <div id="compile-button-container"><button id="compile-button">COMPILE CODE</button></div>
+                <div id="compile-button-container">
+                    <button id="compile-button">COMPILE CODE</button>
+                </div>
             </div>
             <div class="horizontal-resizer"></div>
             <div id="right">

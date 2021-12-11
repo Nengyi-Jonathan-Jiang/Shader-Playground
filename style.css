@@ -156,12 +156,12 @@ div#edit-inputs>div:focus-within
 @keyframes slide-up  {0%{transform:translateY(-100%)}100%{transform:translateY(0%)}}
 
 div#edit-inputs{
-    position:absolute;
+    position:fixed;
     width: calc(100vw * var(--left-width));
     height:fit-content;
     left:0px;
+    top:0;
     overflow:hidden;
-    
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
