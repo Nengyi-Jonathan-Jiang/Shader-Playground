@@ -1,0 +1,100 @@
+body{
+    overflow:hidden;
+    padding:0;margin:0;
+}
+
+*::-webkit-scrollbar{display:none}
+
+div#content{
+    display:flex;
+    align-items: stretch;
+    width:100vw;
+    height:100vh;
+
+    --slider-pos : .4;
+    --left-width: calc(100vw * var(--slider-pos));
+    --right-width: calc(100vw * (1 - var(--slider-pos)));
+}
+
+div#left{
+    width: var(--left-width);
+    background-color: yellow;
+}
+div#right{
+    width: var(--right-width);
+    background-color: green;
+}
+
+
+div#top{
+    background-color: aqua;
+    height:0;
+}
+div#top-1{
+    position: fixed;
+    width: var(--left-width);
+    background-color: aqua;
+    height:fit-content;
+
+    
+    animation-name: b;
+    animation-duration: .5s;
+    animation-fill-mode: forwards;
+    animation-direction: normal;    
+}
+div#top-1:hover{
+    animation-name: a;
+    animation-duration: .5s;
+    animation-fill-mode: forwards;
+    animation-direction: normal;
+}
+
+@keyframes a{
+    0%{
+        transform: translateY(-100%);
+    }
+    100%{
+        transform: translateY(0%);
+    }
+}
+@keyframes b{
+    0%{
+        transform: translateY(0%);
+    }
+    100%{
+        transform: translateY(-100%);
+    }
+}
+
+div#top-1::after{
+    position:absolute;
+    top:100%;
+    content:"ABCDEFG";
+    background-color: #000;
+    color:white;
+}
+
+div#middle{
+    background-color: pink;
+    overflow:scroll;
+}
+div#middle>div{
+    white-space: pre;
+}
+
+div#one{
+
+}
+div#two{
+
+}
+div#bottom{
+    background-color: gold;
+}
+
+div.horizontal-resizer{background-color: black; z-index: 1000; cursor: ew-resize; width: 0px; height: 100%; position:relative}
+div.horizontal-resizer::before,
+div.horizontal-resizer::after{position:absolute; top:0; bottom:0; content:""; display:block}
+div.horizontal-resizer::before{left:-1px; width:2px; background-color: #000}
+div.horizontal-resizer:after{left:-5px; width:10px; background-color: #0000}
+div.horizontal-resizer:hover::after{background-color: #0008}
