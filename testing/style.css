@@ -44,13 +44,12 @@ div#top-1{
     animation-name: b;
     animation-duration: .5s;
     animation-fill-mode: forwards;
-    animation-direction: normal;    
+    animation-direction: normal;
+    
+    white-space:pre;
 }
 div#top-1:hover{
     animation-name: a;
-    animation-duration: .5s;
-    animation-fill-mode: forwards;
-    animation-direction: normal;
 }
 
 @keyframes a{
@@ -76,11 +75,15 @@ div#top-1::after{
     content:"ABCDEFG";
     background-color: #000;
     color:white;
+    display:block;
 }
-
+div#scr{
+    background-color: pink;
+    overflow-y:scroll;
+}
 div#middle{
     background-color: pink;
-    overflow:scroll;
+    overflow-x:scroll;
 }
 div#middle>div{
     white-space: pre;

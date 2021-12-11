@@ -20,10 +20,7 @@
                 <option class="input-type-option" value="KeyDown"  >Last key pressed</option>
             </select>
         </template>
-        <svg style="display:none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 25" width="50" height="25" style="width: 500px;height: 250px;">
-            <path d="M 25 5 L 45 20 L 5 20 L 25 5 Z" style="fill: rgba(50,50,50,0.5);"/>
-            <rect width="50" height="25" style="fill: rgba(216, 216, 216, 0.5);"/>
-        </svg>
+        
         <div id="content">
             <div id="left">
                 <div id="edit-inputs">
@@ -62,21 +59,14 @@
                     </div>
                 </div>
                 <div id="code-container">
-                    <div id="code-header" class="code">
-                        <div id="code-header">
-                            precision mediump float;
-                            <br> varying vec2 fragCoord;
-                            <br> uniform vec2 mouseCoords;
-                            <br> uniform float iTime;
-                            <br> uniform vec3 iDate;
-                        </div>
-                        <br> <br>
-                    </div>
+                    <div id="code-header" class="code">precision mediump float;
+varying vec2 fragCoord;
+uniform vec2 mouseCoords;
+uniform float iTime;
+uniform vec3 iDate;</div>
                     <div id="code-editor" class="code">
                         <div id="code-overlay"></div>
-                        <textarea id="code-input" spellcheck="false">void main{
-    gl_FragColor = vec4(0.5 + 0.5 * cos(fragCoord.xyx + vec3(0,2,4)), 1.0);
-}</textarea>
+                        <textarea id="code-input" spellcheck="false">void main{&#13;    gl_FragColor = vec4(0.5 + 0.5 * cos(fragCoord.xyx + vec3(0,2,4)), 1.0);&#13;}</textarea>
                     </div>
                 </div>
                 <div id="compile-button-container">

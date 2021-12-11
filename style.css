@@ -1,6 +1,3 @@
-/*#region -*/
-/*#endregion*/
-
 /*#region General styling*/
 
     body {
@@ -30,6 +27,7 @@
 /*#endregion*/
 
 /*#region content*/
+
     div#content{
         display:flex;
         width:  100vw;
@@ -42,6 +40,7 @@
     }
 
     /*#region left*/
+
         div#left{
             width: var(--left-width);
             display:flex;
@@ -51,9 +50,177 @@
             min-width: 0;
             max-width: 100vw;
         }
+
+        /*#region edit-inputs*/
+
+            div#edit-inputs{
+                height: 0;
+                line-height: 2.5ch;
+                z-index: 1;
+            }
+
+            div#edit-inputs-inner{
+                background: white;
+                position: absolute;
+                width: var(--left-width);
+                height:fit-content;
+
+                animation-name: slide-up;
+                animation-duration: .5s;
+                animation-fill-mode: forwards;
+                animation-direction: normal; 
+            }
+
+            div#edit-inputs-inner:hover, div#edit-inputs-inner:focus-within{
+                animation-name: slide-down;
+            }
+            
+            div#edit-inputs>div::after{
+                position:absolute;
+                top:100%;
+
+                content:"";
+
+                display:block;
+                width:40px;
+                height:20px;
+                background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 25' width='40' height='20' %3E%3Cpath d='M 25 18 L 43 7 L 7 7 L 25 18 Z' style='fill: rgba(50,50,50,0.5);'/%3E%3Crect width='50' height='25' style='fill: rgba(216, 216, 216, 0.5);'/%3E%3C/svg%3E");
+                text-align: center;
+                right: 0;
+            }
+            
+            @keyframes slide-down {
+                0%   {transform:translateY(-100%)}
+                100% {transform:translateY(0%)}
+            }
+            @keyframes slide-up {
+                0%   {transform:translateY(0%)}
+                100% {transform:translateY(-100%)}
+            }
+
+            /*#region input-editors*/         
+
+                div#input-editors-container{
+                    overflow-x:scroll;
+                }
+                
+                table#input-editors{
+                    padding:0;margin:0;
+                    row-gap: 0;
+                    border-collapse: collapse;
+                    border-spacing: 0;
+                }
+                table#input-editors>tbody>tr{
+                    margin:0;
+                }
+                table#input-editors>tbody>tr>td{
+                    padding:0;
+                    margin:0;
+                }
+
+                table#input-editors>tbody>tr>td:first-child,
+                table#input-editors>tbody>tr>th:first-child{
+                    padding-right: 1ch;
+                    border-right: 1px solid black;
+                }
+                table#input-editors>tbody>tr>td:last-child,
+                table#input-editors>tbody>tr>th:last-child{
+                    padding-left: 1ch;
+                }
+
+                th{
+                    border-bottom: 1px solid black;
+                    white-space: nowrap;
+                }
+
+            /*#endregion*/
+
+            button#add-input{
+                text-align: center;
+                width: 100%;
+                background: gold;
+                color: white;
+            }
+
+            button#add-input:hover{
+                background: yellow;
+            }
+
+        /*#endregion*/
+
+        /*#region code-container*/
+
+            div#code-container{
+                overflow:scroll;
+                flex: 1;
+            }
+
+            /*#region code-header*/
+
+                div#code-header{
+                    white-space: pre;
+                    line-height: 2.5ch;
+                    margin-bottom: 5ch;
+                }
+
+            /*#endregion*/
+
+            /*#region code-editor*/
+
+                div#code-editor{
+                    position:relative;
+                    width: fit-content;
+                    height: fit-content;
+                }
+
+                div#code-editor>div{
+                    white-space: pre;
+                    width: fit-content;
+                    height: fit-content;
+                }
+                textarea#code-input{
+                    white-space: pre;
+
+                    position:absolute;
+                    
+                    width: 100%; height:100%;
+                    min-width: 1ch;
+                    min-height: 1ch;
+                    top:0;
+                    left:0;
+                    right:0;
+                    bottom: 0;
+
+                    resize:none;
+                    
+                    color: transparent;
+                    caret-color: black;
+                    background: transparent;
+                }
+
+            /*#endregion*/
+
+        /*#endregion*/
+
+        /*#region compile-button*/
+
+            button#compile-button {
+                width: var(--left-width);
+                background-color: limegreen;
+                color: white;
+                padding: 1ch;
+            }
+
+            button#compile-button:hover {
+                background-color: cadetblue;
+            }
+
+        /*#endregion*/
+
     /*#endregion*/
 
     /*#region resizer*/
+
         div.horizontal-resizer{
             background-color: black;
             z-index: 2;
@@ -86,14 +253,17 @@
         div.horizontal-resizer:hover::after{
             background-color: #0008;
         }
+
     /*#endregion*/
 
     /*#region right*/
+
         div#right{
             width: var(--right-width);
         }
 
         /*#region canvas*/
+
             div#canvas-container{
                 width: var(--right-width);
                 height: 100vh;
@@ -104,146 +274,9 @@
                 width:  100%;
                 height: 100%;
             }
+
         /*#endregion*/
+
     /*#endregion*/
+
 /*#endregion*/
-
-
-table#input-editors{
-    padding:0;margin:0;
-    row-gap: 0;
-    border-collapse: collapse;
-    border-spacing: 0;
-}
-table#input-editors>tbody>tr{
-    overflow:scroll;
-    padding:-1px;
-    margin:0;
-}
-table#input-editors>tbody>tr>td{
-    padding:0;
-    margin:0;
-}
-
-div#code-header{
-    width: 100%;
-}
-
-table#input-editors>tbody>tr>td:first-child,
-table#input-editors>tbody>tr>th:first-child{
-    padding-right: 1ch;
-    border-right: 1px solid black;
-}
-table#input-editors>tbody>tr>td:last-child,
-table#input-editors>tbody>tr>th:last-child{
-    padding-left: 1ch;
-}
-th{
-    border-bottom: 1px solid black;
-}
-
-div#code-editor{
-    white-space:nowrap;
-    position:relative;
-    border: 1px black;
-    padding: -1px;
-}
-
-
-div#edit-inputs>div::after{
-    position: absolute;
-    content:"";
-    display:block;
-    width:40px;
-    height:20px;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 25' width='40' height='20' %3E%3Cpath d='M 25 18 L 43 7 L 7 7 L 25 18 Z' style='fill: rgba(50,50,50,0.5);'/%3E%3Crect width='50' height='25' style='fill: rgba(216, 216, 216, 0.5);'/%3E%3C/svg%3E");
-    text-align: center;
-    right:0;
-}
-
-button#compile-button:hover {
-    background-color: cadetblue;
-}
-button#compile-button {
-    width: calc(100vw * var(--left-width));
-    background-color: limegreen;
-    color: white;
-    padding: 1ch;
-    margin-top: 2ch;
-}
-
-
-div#edit-inputs>div:hover,
-div#edit-inputs>div:focus-within
-{ transform:translateY(0%);   animation-name: slide-up}
-
-@keyframes slide-down{0%{transform:translateY(0%)}100%{transform:translateY(-100%)}}
-@keyframes slide-up  {0%{transform:translateY(-100%)}100%{transform:translateY(0%)}}
-
-div#edit-inputs{
-    position:fixed;
-    width: calc(100vw * var(--left-width));
-    height:fit-content;
-    left:0px;
-    top:0;
-    overflow:hidden;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
-div#edit-inputs>div{
-    background: white;
-    animation-duration: .2s;
-    animation-direction: normal;
-    animation-fill-mode: none;
-    transform:translateY(-100%);
-    animation-name: slide-down;
-}
-
-div#input-editors-container{
-    overflow-x:scroll;
-}
-
-table#input-editor td{
-    display:flex;
-}
-
-div#edit-inputs>span{
-    flex-shrink: 0;
-    flex-grow:0;
-}
-div#edit-inputs>input{
-    flex-shrink: 1;
-    flex-grow:1;
-    width:fit-content;
-}
-
-div#edit-inputs input,
-div#edit-inputs button{ 
-    outline: none;
-    border: none;
-}
-div#edit-inputs button{
-    text-align: center;
-    width: 100%;
-}
-
-
-button#add-input{
-    width:100%;
-    border:0;
-}
-
-div#code-editor>textarea{
-    resize:none;
-    border:0;
-    outline: none;
-    padding: 0;
-    position:absolute;
-    top:0;
-    background: transparent;
-    width:100%;
-    height:100%;
-    min-width: 1ch; min-height: 1ch;
-}

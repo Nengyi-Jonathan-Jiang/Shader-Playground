@@ -2,7 +2,7 @@ var canvas_container = document.getElementById("canvas-container");
 var canvas = document.createElement("canvas");
 
 var resizer = document.querySelector("div.horizontal-resizer");
-{let _resizer_mouse_down = false;resizer.addEventListener("mousedown",_=>_resizer_mouse_down = true);window.addEventListener("mousemove",e=>{if(_resizer_mouse_down)resizer.parentElement.style.setProperty("--resize-pos", e.clientX/window.innerWidth)});window.addEventListener("mouseup",_=>_resizer_mouse_down = false)}
+{let _resizer_mouse_down = false;resizer.addEventListener("mousedown",_=>_resizer_mouse_down = true);window.addEventListener("mousemove",e=>{if(_resizer_mouse_down)resizer.parentElement.style.setProperty("--resize-pos", e.clientX/window.innerWidth),window.getSelection().removeAllRanges()});window.addEventListener("mouseup",_=>_resizer_mouse_down = false)}
 
 /**@type {HTMLTextAreaElement}*/
 var input = document.getElementById("code-input");
