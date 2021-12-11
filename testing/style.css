@@ -1,3 +1,4 @@
+
 body{
     overflow:hidden;
     padding:0;margin:0;
@@ -5,9 +6,9 @@ body{
 
 *::-webkit-scrollbar{display:none}
 
+
 div#content{
     display:flex;
-    align-items: stretch;
     width:100vw;
     height:100vh;
 
@@ -96,8 +97,7 @@ div#bottom{
 }
 
 div.horizontal-resizer{background-color: black; z-index: 1000; cursor: ew-resize; width: 0px; height: 100%; position:relative}
-div.horizontal-resizer::before,
-div.horizontal-resizer::after{position:absolute; top:0; bottom:0; content:""; display:block}
+div.horizontal-resizer::before, div.horizontal-resizer::after{position:absolute; top:0; bottom:0; content:""; display:block}
 div.horizontal-resizer::before{left:-1px; width:2px; background-color: #000}
-div.horizontal-resizer:after{left:-5px; width:10px; background-color: #0000}
+div.horizontal-resizer::after{left:-5px; width:10px; background-color: #0000}
 div.horizontal-resizer:hover::after{background-color: #0008}
