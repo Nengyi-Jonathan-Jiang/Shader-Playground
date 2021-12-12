@@ -7,8 +7,7 @@ var resizer = document.querySelector("div.horizontal-resizer");
 /**@type {HTMLTextAreaElement}*/
 var input = document.getElementById("code-input");
 input.onchange = input.oninput = input.onkeypress = (f=>(f(),f))(_=>{
-    input.previousElementSibling.innerHTML = input.value
-        .replace(/\n/g,"<br>").replace(/ /g,"&nbsp").replace(/<br>$/g,"<br><br>");
+    input.previousElementSibling.innerHTML = highlight(input.value);
 });
 
 var gl = canvas.getContext("webgl", {antialias:false});

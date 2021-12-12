@@ -8,6 +8,7 @@
 
 		<link href="style.css" rel="stylesheet" type="text/css" />
         <script src="boilerplate.js"></script>
+        <script src="h.js"></script>
     </head>
     <body>
         <template id="input-type-select-template">
@@ -82,7 +83,7 @@
                     </div>
                     <div id="code-editor">
                         <div id="code-overlay"></div>
-                        <textarea id="code-input" spellcheck="false">void main{&#13;    gl_FragColor = vec4(0.5 + 0.5 * cos(fragCoord.xyx + vec3(0,2,4)), 1.0);&#13;}</textarea>
+                        <textarea id="code-input" spellcheck="false">void main(){&#13;    gl_FragColor = vec4(0.5 + 0.5 * cos(fragCoord.xyx + vec3(0,2,4)), 1.0);&#13;}</textarea>
                     </div>
                 </div>
                 <div id="compile-button-container" class="noselect">
