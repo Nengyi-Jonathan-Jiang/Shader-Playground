@@ -6,7 +6,7 @@
         top:0;
         padding: 0;
         margin:0;
-        font-family:'Courier New', Courier, monospace;
+        font-family: monospace;
         font-size: large;
     }
 
@@ -22,6 +22,35 @@
         font: inherit;
         outline:0;
         border:0;
+    }
+
+    .noselect{
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+/*#endregion*/
+
+/*#region highlighting*/
+
+    div.code{
+        background: #222229;
+        color: white;
+        padding: 1ch;
+    }
+
+    span.highlight-keyword{
+        color: orange;
+    }
+    span.highlight-type{
+        color: blueviolet;
+    }
+    span.highlight-var{
+        color: royalblue;
     }
 
 /*#endregion*/
@@ -55,7 +84,6 @@
 
             div#edit-inputs{
                 height: 0;
-                line-height: 2.5ch;
                 z-index: 1;
             }
 
@@ -65,14 +93,12 @@
                 width: var(--left-width);
                 height:fit-content;
 
-                animation-name: slide-up;
-                animation-duration: .5s;
-                animation-fill-mode: forwards;
-                animation-direction: normal; 
+                transform:translateY(-100%);
+                transition: transform .2s;
             }
 
             div#edit-inputs-inner:hover, div#edit-inputs-inner:focus-within{
-                animation-name: slide-down;
+                transform: none;
             }
             
             div#edit-inputs>div::after{
@@ -82,10 +108,9 @@
                 content:"";
 
                 display:block;
-                width:40px;
-                height:20px;
-                background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 25' width='40' height='20' %3E%3Cpath d='M 25 18 L 43 7 L 7 7 L 25 18 Z' style='fill: rgba(50,50,50,0.5);'/%3E%3Crect width='50' height='25' style='fill: rgba(216, 216, 216, 0.5);'/%3E%3C/svg%3E");
-                text-align: center;
+                width: 4ch;
+                height:2ch;
+                background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 25' %3E%3Crect width='50' height='25' style='fill: rgb(127,127,127);'/%3E%3Cpath d='M 25 18 L 43 7 L 7 7 L 25 18 Z' style='fill: rgb(80,80,80);'/%3E%3C/svg%3E");
                 right: 0;
             }
             
@@ -110,21 +135,22 @@
                     border-collapse: collapse;
                     border-spacing: 0;
                 }
-                table#input-editors>tbody>tr{
+                table#input-editors tr{
                     margin:0;
                 }
-                table#input-editors>tbody>tr>td{
+                table#input-editors td{
                     padding:0;
                     margin:0;
+                    user-select: none;
                 }
 
-                table#input-editors>tbody>tr>td:first-child,
-                table#input-editors>tbody>tr>th:first-child{
+                table#input-editors td:first-child,
+                table#input-editors th:first-child{
                     padding-right: 1ch;
                     border-right: 1px solid black;
                 }
-                table#input-editors>tbody>tr>td:last-child,
-                table#input-editors>tbody>tr>th:last-child{
+                table#input-editors td:last-child,
+                table#input-editors th:last-child{
                     padding-left: 1ch;
                 }
 
@@ -140,6 +166,7 @@
                 width: 100%;
                 background: gold;
                 color: white;
+                user-select: none;
             }
 
             button#add-input:hover{
@@ -158,9 +185,8 @@
             /*#region code-header*/
 
                 div#code-header{
-                    white-space: pre;
-                    line-height: 2.5ch;
-                    margin-bottom: 5ch;
+                    /* white-space: pre; */
+                    margin-bottom: 4ch;
                 }
 
             /*#endregion*/
@@ -173,11 +199,12 @@
                     height: fit-content;
                 }
 
-                div#code-editor>div{
+                div#code-overlay{
                     white-space: pre;
                     width: fit-content;
                     height: fit-content;
                 }
+
                 textarea#code-input{
                     white-space: pre;
 
@@ -186,15 +213,15 @@
                     width: 100%; height:100%;
                     min-width: 1ch;
                     min-height: 1ch;
-                    top:0;
-                    left:0;
-                    right:0;
+                    top: 0;
+                    left: 0;
+                    right: 0;
                     bottom: 0;
 
                     resize:none;
                     
                     color: transparent;
-                    caret-color: black;
+                    caret-color: white;
                     background: transparent;
                 }
 

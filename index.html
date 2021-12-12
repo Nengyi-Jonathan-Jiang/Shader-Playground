@@ -23,7 +23,7 @@
         
         <div id="content">
             <div id="left">
-                <div id="edit-inputs">
+                <div id="edit-inputs" class="noselect">
                     <div id="edit-inputs-inner">
                         <div id="input-editors-container">
                             <table id="input-editors">
@@ -58,18 +58,34 @@
                         </div>
                     </div>
                 </div>
-                <div id="code-container">
-                    <div id="code-header" class="code">precision mediump float;
-varying vec2 fragCoord;
-uniform vec2 mouseCoords;
-uniform float iTime;
-uniform vec3 iDate;</div>
-                    <div id="code-editor" class="code">
+                <div id="code-container" class="code">
+                    <div id="code-header">
+                        <span class="highlight-keyword">precision</span>
+                        <span class="highlight-keyword">mediump</span>
+                        <span class="highlight-type">float</span>;<br>
+
+                        <span class="highlight-keyword">varying</span>
+                        <span class="highlight-type">vec2</span>
+                        <span class="highlight-var">fragCoord</span>;<br>
+
+                        <span class="highlight-keyword">uniform</span>
+                        <span class="highlight-type">vec2</span>
+                        <span class="highlight-var">mouseCoords</span>;<br>
+
+                        <span class="highlight-keyword">uniform</span>
+                        <span class="highlight-type">float</span>
+                        <span class="highlight-var">iTime</span>;<br>
+                        
+                        <span class="highlight-keyword">uniform</span>
+                        <span class="highlight-type">vec3</span>
+                        <span class="highlight-var">iDate</span>;<br>
+                    </div>
+                    <div id="code-editor">
                         <div id="code-overlay"></div>
                         <textarea id="code-input" spellcheck="false">void main{&#13;    gl_FragColor = vec4(0.5 + 0.5 * cos(fragCoord.xyx + vec3(0,2,4)), 1.0);&#13;}</textarea>
                     </div>
                 </div>
-                <div id="compile-button-container">
+                <div id="compile-button-container" class="noselect">
                     <button id="compile-button">COMPILE CODE</button>
                 </div>
             </div>
