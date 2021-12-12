@@ -43,13 +43,13 @@
         padding: 1ch;
     }
 
-    span.highlight-keyword{
+    span.h-keyword{
         color: orange;
     }
-    span.highlight-type{
+    span.h-type{
         color: blueviolet;
     }
-    span.highlight-var{
+    span.h-var{
         color: royalblue;
     }
 
