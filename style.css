@@ -49,8 +49,17 @@
     span.h-type{
         color: blueviolet;
     }
+    span.h-reserved{
+        color: crimson;
+    }
+    span.h-func{
+        color: rgb(80, 200, 225);
+    }
     span.h-var{
-        color: royalblue;
+        color: rgb(80, 200, 225);
+    }
+    span.h-literal{
+        color: grey;
     }
 
 /*#endregion*/

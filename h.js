@@ -396,16 +396,22 @@ function highlight(str){
     ];
 
     String.prototype.h_replace = function h_replace(words,cls){
-        return this.replace(new RegExp(`\\b(${words.join("|")})\\b`,"g"), `<span class=\"${cls}\">$&</span>`)
+        const reg = new RegExp(`(?<!\\w)(${words.join("|")})(?!\\w)`,'g');
+        const replace = `<span class=\"${cls}\">$&</span>`
+        return this.replace(reg, replace);
     }
+
+    // console.log(new RegExp(`\\b(${keywords.join("|")})\\b`, 'gm'));
 
     return str
         //Formatting for html
-        .replace(/\n/g,"<br>").replace(/ /g,"&nbsp").replace(/<br>$/g,"<br><br>")
+        .replace(/\n/g,"<br>").replace(/ /g,"&nbsp;").replace(/<br>$/g,"<br><br>")
+        //replace
+        .h_replace(reserved_keywords, "h-reserved")
         .h_replace(keywords, "h-keyword")
         .h_replace(built_in_types, "h-type")
         .h_replace(built_in_functions, "h-func")
-        // .h_replace(built_in_vars, "h-var")
-        // .h_replace(reserved_keywords, "h-reserved")
+        .h_replace(built_in_vars, "h-var")
+        .h_replace(["true|false|\\d+\\.\\d*|\\.\\d+|\\d+"],"h-literal")
     ;
 }
