@@ -185,7 +185,7 @@
             /*#region code-header*/
 
                 div#code-header{
-                    /* white-space: pre; */
+                    white-space: nowrap;
                     margin-bottom: 4ch;
                 }
 
